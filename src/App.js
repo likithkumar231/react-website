@@ -1,47 +1,27 @@
-import React,{useState} from 'react'
-import './App.css'
-import Todo from './todo';
+import React from 'react'
+import { Route,Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import Services from './pages/Services'
+import Error from './pages/Error'
+import Navbar from './Navbar'
+import Footer from './Footer'
 const App = () => {
-  const[inputlist,setinputlist]=useState(" ");
-  const[items,setitems]=useState([]);
-  const Text = (event) => {
-    setinputlist(event.target.value)
-  }
-  const Listofitems=()=>{
-    setitems((olditems)=>{
-      return [...olditems,inputlist];
-    })
-    setinputlist("")
-  }
-  const Deleteitem=(id)=>{
-    console.log("deleted");
-    setitems((olditems)=>{
-      return olditems.filter((arrEle,index)=>{
-        return index!==id;
-      })
-    })
-  }
-
   return (
-    <div className='Main-div'>
-        <center>
-        <div className='center-div'>
-            <h1 className='h1'>Todo List</h1>
-            <br/>
-            <input type="text" placeholder="Add Text" className='input' value={inputlist} onChange={Text} ></input>
-            <button className='button' onClick={Listofitems}>+</button>
-          <ol>
-           {
-            items.map((itemval,index)=>{
-              return <Todo key={index} id={index} text={itemval} onselect={Deleteitem} />
-            })
-           }
-          </ol>
-        </div>
-        </center>
-        
-    </div>
+    <>
+    <Navbar/>
+    <Routes>
+      <Route exact to path='/' element={<Home/>}/>
+      <Route path='/About' element={<About/>}/>
+      <Route path='/Services' element={<Services/>}/>
+      <Route path='/Contact' element={<Contact/>}/>
+      <Route element={<Error/>}/>
+    </Routes>
+    <Footer/>
+    </>
   )
 }
 
 export default App
+
